@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,13 +45,14 @@
 
         .auth-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .container {
             display: flex;
             min-height: 100vh;
-            margin-top: 60px; /* Espaço para o header */
+            margin-top: 60px;
+            /* Espaço para o header */
         }
 
         .sidebar {
@@ -80,27 +82,40 @@
 
         .main-content {
             flex: 1;
-            margin-left: 250px; /* Largura da sidebar */
+            margin-left: 250px;
+            /* Largura da sidebar */
             padding: 40px;
             background-color: #ecf0f1;
             min-height: calc(100vh - 60px);
         }
+
+        .auth-button {
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .main-content {
+            transition: background-color 0.3s ease;
+        }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="header">
-        <button class="auth-button register-btn">Registrar</button>
-        <button class="auth-button login-btn">Login</button>
+        <a href="{% url 'register' %}" class="auth-button register-btn">Registrar</a>
+        <a href="{% url 'login' %}" class="auth-button login-btn">Login</a>
     </div>
 
     <div class="container">
         <!-- Barra Lateral -->
         <div class="sidebar">
-            <button class="sidebar-button">Botão 1</button>
-            <button class="sidebar-button">Botão 2</button>
-            <button class="sidebar-button">Botão 3</button>
+            <button class="sidebar-button" data-color="#ffffff">Botão 1</button>
+            <button class="sidebar-button" data-color="#3b82f6">Botão 2</button>
+            <button class="sidebar-button" data-color="#374151">Botão 3</button>
         </div>
+
 
         <!-- Conteúdo Principal -->
         <div class="main-content">
@@ -108,5 +123,20 @@
             {% endblock %}
         </div>
     </div>
+    <script>
+        // troca a cor de fundo do conteudo principal
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.sidebar-button');
+            const mainContent = document.querySelector('.main-content'); // Alteração crucial aqui
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const color = this.dataset.color;
+                    mainContent.style.backgroundColor = color;
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>
