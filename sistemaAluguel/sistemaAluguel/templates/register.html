@@ -27,7 +27,7 @@
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         width: 100%;
-        max-width: 400px;
+        max-width: 450px;
         }
 
         .register-container h2 {
@@ -84,13 +84,33 @@
         <form>
         <!-- Name input field -->
         <div class="form-group">
-            <label for="name">Full Name</label>
+            <label for="name">Nome Completo</label>
             <input type="text" id="name" name="name" required placeholder="Mario Mario" />
         </div>
         <!-- User input field -->
         <div class="form-group">
-            <label for="user">Userman</label>
+            <label for="user">Usuário</label>
             <input type="text" id="user" name="user" required placeholder="Tetris 85" />
+        </div>
+        <!-- Email -->    
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="seu@email.com" />
+        </div>
+        <!-- Telefone -->     
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" required placeholder="99 9 9999 9999" />
+        </div>
+        <!-- Endereco -->   
+        <div class="form-group">
+            <label for="endereco">Endereço</label>
+            <input type="text" id="endereco" name="endereco" required placeholder="Serra Talhada, Uast, Bloco 2, Sala 11" />
+        </div>
+        <!-- CPF -->    
+        <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input type="number" id="cpf" name="cpf" required placeholder="12345678900" />
         </div>
         <!-- Password input field -->
         <div class="form-group">
