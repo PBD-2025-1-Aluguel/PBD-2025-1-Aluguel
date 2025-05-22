@@ -5,3 +5,9 @@ def home(request):
         request,
         'home.html'
     )
+
+def loginView(request):
+    return render(
+        request,
+        'login.html'
+    )
