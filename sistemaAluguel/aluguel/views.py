@@ -18,3 +18,15 @@ def dashboardView(request):
         request,
         'dash.html'
     )
+
+#def login(request):
+#    if request.method == "GET":
+#        return render(request, 'login.html')
+#    else:
+#        username = request.POST.get('user')
+#        senha = request.POST.get('password')
+#
+#        return HttpResponse(username)
+    
+
+

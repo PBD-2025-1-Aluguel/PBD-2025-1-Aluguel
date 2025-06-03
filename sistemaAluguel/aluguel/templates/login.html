@@ -15,7 +15,7 @@
         /* Plano de fundo com o conteudo no meio */
         body {
         font-family: Arial, sans-serif;
-        background: #2c3e50;
+        background: #f8f9fa;
         height: 100vh;
         display: flex;
         align-items: center;
@@ -25,7 +25,7 @@
 
         /* Retangulo do Login */
         .login-container {
-        background: #34495e;
+        background: #e9ecef;
         padding: 2rem;
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -37,7 +37,7 @@
         .login-container h2 {
         margin-bottom: 1.5rem;
         text-align: center;
-        color: #f9fafb;
+        color: #091725;
         }
 
         /* agrupamento dos input elements */
@@ -49,23 +49,23 @@
         .form-group label {
         display: block;
         margin-bottom: 0.5rem;
-        color: #d1d5db;
+        color: #757d88;
         }
 
         /* Input field styling */
         .form-group input {
         width: 100%;
         padding: 0.75rem;
-        border: 1px solid #374151;
+        border: 1px solid #0f141b;
         border-radius: 5px;
         font-size: 1rem;
-        background-color: #111827;
-        color: #f9fafb;
+        background-color: #9ea7bb;
+        color: #0b1118;
         }
 
         /* Input placeholder text color */
         .form-group input::placeholder {
-        color: #9ca3af;
+        color: #0f1011;
         }
 
         /* Submit button styling */
@@ -73,7 +73,7 @@
         width: 100%;
         padding: 0.75rem;
         border: none;
-        background-color: #3b82f6;
+        background-color: #2e75e7;
         color: white;
         font-size: 1rem;
         border-radius: 5px;
@@ -91,7 +91,7 @@
     <div class="login-container">
         <!-- Login form container -->
         <h2>Login</h2>
-        <form>
+        <form action="{% url 'login' %}" method="POST">{% csrf_token %}
             <!-- Text input field -->
         <div class="form-group">
             <label for="user">Username</label>

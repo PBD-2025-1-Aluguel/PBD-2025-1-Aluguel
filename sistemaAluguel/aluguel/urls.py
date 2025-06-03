@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.home, name="marcketplaceHome"),
     path('login',auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('dash', views.dashboardView, name='dashboard')
+    #path('login/', views.login, name="login")
 ]
