@@ -1,5 +1,3 @@
-# pbd-2025-1-aluguel/pbd-2025-1-aluguel/PBD-2025-1-Aluguel-411179ba61017a5167dd2d9db4166d3b432e4cd5/sistemaAluguel/aluguel/views.py
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -63,3 +61,33 @@ def logout_view(request):
     """
     logout(request)
     return redirect('home')
+
+from django.shortcuts import render
+
+def home(request):
+    return render(
+        request,
+        'home.html'
+    )
+
+def loginView(request):
+    return render(
+        request,
+        'login.html'
+    )
+
+def dashboardView(request):
+    return render(
+        request,
+        'dash.html'
+    )
+
+#def login(request):
+#    if request.method == "GET":
+#        return render(request, 'login.html')
+#    else:
+#        username = request.POST.get('user')
+#        senha = request.POST.get('password')
+#
+#        return HttpResponse(username)
+    
