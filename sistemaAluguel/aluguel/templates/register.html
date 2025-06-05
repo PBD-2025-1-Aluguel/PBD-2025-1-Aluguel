@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de Usuário</title>
+    <style>
+        * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        }
+
+        body {
+        font-family: Arial, sans-serif;
+        background: #2c3e50;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e5e7eb;
+        }
+
+        .register-container {
+        background: #34495e;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        width: 100%;
+        max-width: 450px;
+        }
+
+        .register-container h2 {
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #f9fafb;
+        }
+
+        .form-group {
+        margin-bottom: 1rem;
+        }
+
+        .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #d1d5db;
+        }
+
+        .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #374151;
+        border-radius: 5px;
+        font-size: 1rem;
+        background-color: #111827;
+        color: #f9fafb;
+        }
+
+        .form-group input::placeholder {
+        color: #9ca3af;
+        }
+
+        .register-button {
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        background-color: #b9b610;
+        color: white;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        }
+
+        .register-button:hover {
+        background-color: #059669;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="register-container">
+        <!-- Register form container -->
+        <h2>Register</h2>
+        <form>
+        <!-- User input field -->
+        <div class="form-group">
+            <label for="user">Usuário</label>
+            <input type="text" id="user" name="user" required placeholder="Nome de usuário" />
+        </div>
+        <!-- Password input field -->
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" required placeholder="Crie uma senha" />
+        </div>
+        <!-- Confirm password field -->
+        <div class="form-group">
+            <label for="confirm-password">Confirmar Senha</label>
+            <input type="password" id="confirm-password" name="confirm-password" required placeholder="Repita a senha" />
+        </div>
+        <!-- Submit button -->
+        <button type="submit" class="register-button">Registrar</button>
+        </form>
+    </div>
+</body>
+</html>

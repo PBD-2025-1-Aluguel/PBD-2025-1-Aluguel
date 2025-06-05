@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login de Usuário</title>
+    <style>
+        /* Reset styles and box sizing */
+        * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        }
+
+        /* Plano de fundo com o conteudo no meio */
+        body {
+        font-family: Arial, sans-serif;
+        background: #f8f9fa;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e5e7eb;
+        }
+
+        /* Retangulo do Login */
+        .login-container {
+        background: #e9ecef;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        width: 100%;
+        max-width: 400px;
+        }
+
+        /* Login title */
+        .login-container h2 {
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #091725;
+        }
+
+        /* agrupamento dos input elements */
+        .form-group {
+        margin-bottom: 1rem;
+        }
+
+        /* Label styling */
+        .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #757d88;
+        }
+
+        /* Input field styling */
+        .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #0f141b;
+        border-radius: 5px;
+        font-size: 1rem;
+        background-color: #9ea7bb;
+        color: #0b1118;
+        }
+
+        /* Input placeholder text color */
+        .form-group input::placeholder {
+        color: #0f1011;
+        }
+
+        /* Submit button styling */
+        .login-button {
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        background-color: #2e75e7;
+        color: white;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        }
+
+        /* Button hover effect */
+        .login-button:hover {
+        background-color: #2563eb;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="login-container">
+        <!-- Login form container -->
+        <h2>Login</h2>
+        <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+            <!-- Text input field -->
+        <div class="form-group">
+            <label for="user">Nome de Usuário</label>
+            <input type="text" id="user" name="user" required placeholder="Digite seu usuário" />
+        </div>
+        <!-- Password input field -->
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required placeholder="••••••••" />
+        </div>
+        <!-- Submit button -->
+        <button type="submit" class="login-button">Login</button>
+        </form>
+    </div>
+</body>
+</html>
