@@ -7,106 +7,142 @@
     <style>
         /* Reset styles and box sizing */
         * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         /* Plano de fundo com o conteudo no meio */
         body {
-        font-family: Arial, sans-serif;
-        background: #f8f9fa;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #e5e7eb;
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333; /* Cor de texto padrão melhorada */
         }
 
         /* Retangulo do Login */
         .login-container {
-        background: #e9ecef;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        width: 100%;
-        max-width: 400px;
+            background: #e9ecef;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 400px;
         }
 
         /* Login title */
         .login-container h2 {
-        margin-bottom: 1.5rem;
-        text-align: center;
-        color: #091725;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #091725;
         }
 
         /* agrupamento dos input elements */
         .form-group {
-        margin-bottom: 1rem;
+            margin-bottom: 1rem;
         }
 
         /* Label styling */
         .form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: #757d88;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #495057; /* Cor do label melhorada */
         }
 
         /* Input field styling */
         .form-group input {
-        width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #0f141b;
-        border-radius: 5px;
-        font-size: 1rem;
-        background-color: #9ea7bb;
-        color: #0b1118;
-        }
-
-        /* Input placeholder text color */
-        .form-group input::placeholder {
-        color: #0f1011;
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da; /* Borda mais suave */
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #fff; /* Fundo branco para inputs */
+            color: #495057;
         }
 
         /* Submit button styling */
         .login-button {
-        width: 100%;
-        padding: 0.75rem;
-        border: none;
-        background-color: #2e75e7;
-        color: white;
-        font-size: 1rem;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            background-color: #2e75e7;
+            color: white;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem; /* Espaço acima do botão */
         }
 
         /* Button hover effect */
         .login-button:hover {
-        background-color: #2563eb;
+            background-color: #2563eb;
+        }
+        
+        /* Estilo para links de navegação e erros */
+        .nav-links {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .nav-links a {
+            color: #2e75e7;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .errorlist {
+            color: #dc3545;
+            list-style-type: none;
+            padding: 0;
+            margin-top: 5px;
+            font-size: 0.9rem;
         }
     </style>
-    </head>
-    <body>
+</head>
+<body>
     <div class="login-container">
-        <!-- Login form container -->
         <h2>Login</h2>
-        <form action="{% url 'login' %}" method="POST">{% csrf_token %}
-            <!-- Text input field -->
-        <div class="form-group">
-            <label for="user">Nome de Usuário</label>
-            <input type="text" id="user" name="user" required placeholder="Digite seu usuário" />
-        </div>
-        <!-- Password input field -->
-        <div class="form-group">
-            <label for="senha">Senha</label>
-            <input type="password" id="senha" name="senha" required placeholder="••••••••" />
-        </div>
-        <!-- Submit button -->
-        <button type="submit" class="login-button">Login</button>
+        
+        <form method="POST">
+            {% csrf_token %}
+
+            {# --- INÍCIO DA CORREÇÃO --- #}
+
+            {# Bloco para exibir erros gerais (ex: "Usuário ou senha inválidos") #}
+            {% if form.non_field_errors %}
+                <div class="form-group">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {# Campo de Usuário renderizado pelo Django #}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+            {# Campo de Senha renderizado pelo Django #}
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+
+            {# --- FIM DA CORREÇÃO --- #}
+
+            <button type="submit" class="login-button">Login</button>
         </form>
-        <p>Não tem uma conta? <a href="{% url 'register' %}">Cadastre-se</a></p>
-        <p><a href="{% url 'home' %}">Voltar para a página inicial</a></p>
+
+        <div class="nav-links">
+            <p>Não tem uma conta? <a href="{% url 'signup' %}">Cadastre-se</a></p>
+            <p><a href="{% url 'home' %}">Voltar para a página inicial</a></p>
+        </div>
     </div>
 </body>
 </html>

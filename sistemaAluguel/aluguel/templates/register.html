@@ -1,107 +1,106 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuário</title>
     <style>
-        * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        }
-
+        /* Estilos (podem ser os mesmos do login.html) */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-        font-family: Arial, sans-serif;
-        background: #2c3e50;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #e5e7eb;
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
         }
-
         .register-container {
-        background: #34495e;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        width: 100%;
-        max-width: 450px;
+            background: #e9ecef;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 400px;
         }
-
         .register-container h2 {
-        margin-bottom: 1.5rem;
-        text-align: center;
-        color: #f9fafb;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #091725;
         }
-
-        .form-group {
-        margin-bottom: 1rem;
-        }
-
-        .form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: #d1d5db;
-        }
-
-        .form-group input {
-        width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #374151;
-        border-radius: 5px;
-        font-size: 1rem;
-        background-color: #111827;
-        color: #f9fafb;
-        }
-
-        .form-group input::placeholder {
-        color: #9ca3af;
-        }
-
         .register-button {
-        width: 100%;
-        padding: 0.75rem;
-        border: none;
-        background-color: #b9b610;
-        color: white;
-        font-size: 1rem;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            background-color: #ff6b6b;
+            color: white;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
         }
-
         .register-button:hover {
-        background-color: #059669;
+            background-color: #ff5252;
+        }
+        .nav-links {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .nav-links a {
+            color: #2e75e7;
+            text-decoration: none;
+        }
+        /* Estilos para os campos e erros do formulário do Django */
+        .register-container form p {
+            margin-bottom: 1rem;
+        }
+        .register-container form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        .register-container form input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .errorlist { /* AQUI ESTÁ A ESTILIZAÇÃO DA MENSAGEM DE ERRO */
+            color: #dc3545; /* Vermelho para erros */
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .helptext {
+            font-size: 0.8rem;
+            color: #6c757d;
+            display: block;
+            margin-top: 5px;
         }
     </style>
-    </head>
-    <body>
+</head>
+<body>
     <div class="register-container">
-        <!-- Register form container -->
-        <h2>Register</h2>
-        <form>
-        <!-- User input field -->
-        <div class="form-group">
-            <label for="user">Usuário</label>
-            <input type="text" id="user" name="user" required placeholder="Nome de usuário" />
-        </div>
-        <!-- Password input field -->
-        <div class="form-group">
-            <label for="password">Senha</label>
-            <input type="password" id="password" name="password" required placeholder="Crie uma senha" />
-        </div>
-        <!-- Confirm password field -->
-        <div class="form-group">
-            <label for="confirm-password">Confirmar Senha</label>
-            <input type="password" id="confirm-password" name="confirm-password" required placeholder="Repita a senha" />
-        </div>
-        <!-- Submit button -->
-        <button type="submit" class="register-button">Registrar</button>
+        <h2>Criar Conta</h2>
+        
+        <form method="POST">
+            {% csrf_token %}
+
+            {# ESTA LINHA É A MAIS IMPORTANTE #}
+            {# Ela renderiza o formulário do Django, que é capaz de mostrar os erros de validação #}
+            {{ form.as_p }}
+
+            <button type="submit" class="register-button">Registrar</button>
         </form>
-        <p>Já tem uma conta? <a href="{% url 'login' %}">Faça o login</a></p>
-        <a href="{% url 'home' %}">Voltar para a página inicial</a>
+
+        <div class="nav-links">
+            <p>Já tem uma conta? <a href="{% url 'login' %}">Faça o login</a></p>
+        </div>
     </div>
 </body>
 </html>

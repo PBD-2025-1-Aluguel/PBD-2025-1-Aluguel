@@ -41,14 +41,21 @@
             color: #333;
         }
 
+        /* Adicionei um estilo para a mensagem de "Olá" */
+        .nav-links span {
+            margin-left: 2rem;
+            color: #555;
+            font-weight: bold;
+        }
+
         /* Hero Section */
         .hero {
             background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-            height: 80vh;
+            min-height: 60vh; /* Usei min-height para melhor responsividade */
             display: flex;
             align-items: center;
             padding: 0 5%;
-            margin-top: 60px;
+            margin-top: 60px; /* Ajuste para o header fixo */
         }
 
         .hero-content {
@@ -76,115 +83,35 @@
             font-size: 1.1rem;
             cursor: pointer;
             transition: background 0.3s;
+            text-decoration: none; /* Para caso usemos a tag <a> */
+            display: inline-block; /* Para caso usemos a tag <a> */
         }
 
         .cta-button:hover {
             background: #ff5252;
         }
 
-        /* Categories */
-        .categories {
-            padding: 4rem 5%;
-        }
-
-        .categories h2 {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .category-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Featured Rentals */
-        .featured {
-            padding: 4rem 5%;
-            background: #f8f9fa;
-        }
-
-        .featured h2 {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .rentals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .rental-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .rental-image {
-            height: 200px;
-            background: #ddd;
-            overflow: hidden;
-        }
-
-        .rental-info {
-            padding: 1.5rem;
-        }
-
-        .price {
-            font-size: 1.2rem;
-            color: #ff6b6b;
-            font-weight: bold;
-            margin: 0.5rem 0;
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 3rem 5%;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
+        /* ... O resto do seu CSS permanece igual ... */
+        .categories { padding: 4rem 5%; }
+        .categories h2 { text-align: center; margin-bottom: 3rem; }
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .category-card { background: white; padding: 2rem; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .category-card:hover { transform: translateY(-5px); }
+        .featured { padding: 4rem 5%; background: #f8f9fa; }
+        .featured h2 { text-align: center; margin-bottom: 3rem; }
+        .rentals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .rental-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .rental-image { height: 200px; background: #ddd; overflow: hidden; }
+        .rental-info { padding: 1.5rem; }
+        .price { font-size: 1.2rem; color: #ff6b6b; font-weight: bold; margin: 0.5rem 0; }
+        footer { background: #333; color: white; padding: 3rem 5%; margin-top: 4rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .footer-section h3 { margin-bottom: 1rem; }
+        .footer-section a { color: #ccc; text-decoration: none; display: block; margin-bottom: 0.5rem; }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -193,18 +120,33 @@
         <nav>
             <div class="logo">RentHub</div>
             <div class="nav-links">
-                <a href="{% url 'login' %}">Entrar</a>
-                <a href="{% url 'register' %}">Registrar</a>
+                {% if user.is_authenticated %}
+                    <span>Olá, {{ user.username }}</span>
+                    <a href="{% url 'dash' %}">Dashboard</a>
+                    <a href="{% url 'logout' %}">Sair</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Entrar</a>
+                    <a href="{% url 'signup' %}">Registrar</a>
+                {% endif %}
+
             </div>
         </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Bem-vindo ao RentHub {{ user.username }} </h1>
-            <h2>Alugue o que precisar, quando precisar</h2>
-            <p>Encontre itens para alugar perto de você de forma rápida e segura</p>
-            <button class="cta-button">Começar agora</button>
+            {% if user.is_authenticated %}
+                <h1>Bem-vindo de volta!</h1>
+                <h2>O que você gostaria de alugar hoje, {{ user.username }}?</h2>
+                <p>Encontre itens para alugar perto de você de forma rápida e segura.</p>
+                <a href="#featured" class="cta-button">Explorar Itens</a>
+            {% else %}
+                <h1>Bem-vindo ao RentHub</h1>
+                <h2>Alugue o que precisar, quando precisar</h2>
+                <p>Encontre itens para alugar perto de você de forma rápida e segura.</p>
+                <a href="{% url 'signup' %}" class="cta-button">Começar agora</a>
+            {% endif %}
+
         </div>
     </section>
 
@@ -241,7 +183,6 @@
                     <p>Serra Talhada - PE</p>
                 </div>
             </div>
-            
         </div>
     </section>
 

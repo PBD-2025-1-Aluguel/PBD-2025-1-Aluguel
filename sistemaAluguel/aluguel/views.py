@@ -17,7 +17,7 @@ def dash(request):
     """
     return render(request, 'dash.html')
 
-def register(request):
+def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -28,7 +28,7 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 def login_view(request):
-    if request.method == 'POST':
+    if request.method == 'POST':  # <-- CORRIGIDO AQUI (parêntese removido)
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -36,9 +36,12 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('dash')
+                return redirect('home')
     else:
         form = AuthenticationForm()
+    
+    # Esta linha renderiza o login.html com o formulário
+    # (seja um formulário em branco ou um com erros de validação)
     return render(request, 'login.html', {'form': form})
 
 def logout_view(request):

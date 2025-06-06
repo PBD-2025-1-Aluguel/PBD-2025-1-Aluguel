@@ -195,11 +195,19 @@
             </div>
         </nav>
     </header>
-    <div class="dashboard-container">
+    <nav>
+        <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>Olá, [Usuário]</h1>
+            <h1>Olá, {{ user.username }}</h1>
             <button class="cta-button">+ Adicionar Novo Item</button>
         </div>
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+            {% else %}
+                <a href="{% url 'login' %}">Entrar</a>
+            {% endif %}
+        </div>
+    
 
         <div class="stats-grid">
             <div class="stat-card">
