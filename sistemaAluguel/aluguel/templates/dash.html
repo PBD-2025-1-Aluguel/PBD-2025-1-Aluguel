@@ -1,213 +1,68 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | RentHub</title>
-    <style>
-        /* Estilos Globais */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Header Fixo */
-        header {
-            background: #fff;
-            padding: 1rem 5%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links a {
-            margin-left: 2rem;
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #ff6b6b;
-        }
-
-        /* Container Principal */
-        .dashboard-container {
-            max-width: 1200px;
-            margin: 100px auto 2rem;
-            padding: 0 5%;
-        }
-
-        /* Header do Dashboard */
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        /* Cards de Estatísticas */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ff6b6b;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Tabela de Itens */
-        .items-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-top: 1.5rem;
-        }
-
-        .items-table th,
-        .items-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        .items-table th {
-            background: #f8f9fa;
-            font-weight: 600;
-        }
-
-        /* Status e Botões */
-        .status-indicator {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .status-available {
-            background: #e3fcef;
-            color: #006644;
-        }
-
-        .status-rented {
-            background: #fffae6;
-            color: #8a6d00;
-        }
-
-        .action-button {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 0.5rem;
-            transition: opacity 0.3s;
-        }
-
-        .action-button:hover {
-            opacity: 0.9;
-        }
-
-        .edit-button {
-            background: #e3f2fd;
-            color: #1976d2;
-        }
-
-        .delete-button {
-            background: #ffebee;
-            color: #d32f2f;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .dashboard-header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .items-table {
-                display: block;
-                overflow-x: auto;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stat-value {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
+
 <body>
     <header>
         <nav>
             <div class="logo">RentHub</div>
             <div class="nav-links">
                 <a href="/">Voltar ao Marketplace</a>
-                <a href="#my-items">Meus Itens</a>
-                <a href="#add-item">Adicionar Item</a>
                 <a href="{% url 'login' %}">Sair</a>
             </div>
         </nav>
     </header>
-    <nav>
-        <div class="dashboard-container">
+
+    <!-- Sidebar para superusuário -->
+    {% if user.is_superuser %}
+    <div class="sidebar-toggle" id="sidebarToggle">☰</div>
+    <aside class="admin-sidebar" id="adminSidebar">
+        <ul>
+            <li>
+                <a href="#">
+                    <span class="icon">🏢</span>
+                    Cadastrar Empresa
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">📦</span>
+                    Cadastrar Item
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">👥</span>
+                    Gerenciar Usuários
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">📊</span>
+                    Relatórios
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">⚙️</span>
+                    Configurações
+                </a>
+            </li>
+        </ul>
+    </aside>
+    {% endif %}
+
+    <div class="dashboard-container" id="mainContainer">
         <div class="dashboard-header">
             <h1>Olá, {{ user.username }}</h1>
-            <button class="cta-button">+ Adicionar Novo Item</button>
         </div>
-        <div class="nav-links">
-            {% if user.is_authenticated %}
-            {% else %}
-                <a href="{% url 'login' %}">Entrar</a>
-            {% endif %}
-        </div>
-    
 
         <div class="stats-grid">
             <div class="stat-card">
@@ -236,7 +91,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Exemplo de itens -->
                 <tr>
                     <td>Câmera Profissional Canon EOS R6</td>
                     <td><span class="status-indicator status-available">Disponível</span></td>
@@ -257,11 +111,11 @@
                         <button class="action-button delete-button">Excluir</button>
                     </td>
                 </tr>
-                <!-- Adicione mais linhas conforme necessário -->
             </tbody>
         </table>
     </div>
 
-    <!-- Footer pode ser mantido igual -->
+    <script src="{% static 'js/dashboard.js' %}"></script>
 </body>
+
 </html>
