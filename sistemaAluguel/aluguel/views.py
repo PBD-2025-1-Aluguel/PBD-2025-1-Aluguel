@@ -80,6 +80,17 @@ def dashboardView(request):
         'dash.html'
     )
 
+def cadastrarEmpresaView(request):
+    # Verificar se o usuário é superusuário
+    if not request.user.is_superuser:
+        return redirect('dash')
+    
+    if request.method == 'POST':
+        # TODO tratar os dados do formulario
+        return redirect('dash')
+    
+    return render(request, 'cadastrarEmpresa.html')
+
 #def login(request):
 #    if request.method == "GET":
 #        return render(request, 'login.html')
