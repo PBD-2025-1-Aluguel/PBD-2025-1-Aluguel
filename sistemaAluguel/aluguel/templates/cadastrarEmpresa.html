@@ -9,7 +9,7 @@
     <style>
         /* Estilos específicos para o formulário de empresa */
         .form-container {
-            max-width: 700px;
+            max-width: 600px;
             margin: 0 auto;
             background: white;
             padding: 2rem;
@@ -92,6 +92,10 @@
         .form-header p {
             color: #777;
         }
+        
+        .required-asterisk {
+            color: #ff6b6b;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +109,20 @@
         </nav>
     </header>
     
+    <!-- Mensagens de alerta -->
+    {% if messages %}
+    <div style="position: fixed; top: 80px; right: 20px; z-index: 1100;">
+        {% for message in messages %}
+        <div style="padding: 15px; margin-bottom: 10px; border-radius: 4px; 
+                background: {% if message.tags == 'success' %}#d4edda{% else %}#f8d7da{% endif %}; 
+                color: {% if message.tags == 'success' %}#155724{% else %}#721c24{% endif %};
+                border: 1px solid {% if message.tags == 'success' %}#c3e6cb{% else %}#f5c6cb{% endif %};">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
     <div class="dashboard-container">
         <div class="form-header">
             <h1>Cadastrar Nova Empresa</h1>
@@ -116,112 +134,31 @@
                 {% csrf_token %}
                 
                 <div class="form-group">
-                    <label for="razao-social">Razão Social *</label>
-                    <input type="text" id="razao-social" name="razao_social" class="form-control" required>
+                    <label for="nome">
+                        Nome <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="nome" name="nome" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="nome-fantasia">Nome Fantasia *</label>
-                    <input type="text" id="nome-fantasia" name="nome_fantasia" class="form-control" required>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="cnpj">CNPJ *</label>
-                            <input type="text" id="cnpj" name="cnpj" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="inscricao-estadual">Inscrição Estadual</label>
-                            <input type="text" id="inscricao-estadual" name="inscricao_estadual" class="form-control">
-                        </div>
-                    </div>
+                    <label for="cnpj">
+                        CNPJ <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="cnpj" name="cnpj" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="endereco">Endereço *</label>
-                    <input type="text" id="endereco" name="endereco" class="form-control" required>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="cidade">Cidade *</label>
-                            <input type="text" id="cidade" name="cidade" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="estado">Estado *</label>
-                            <select id="estado" name="estado" class="form-control" required>
-                                <option value="">Selecione...</option>
-                                <option value="AC">Acre</option>
-                                <option value="AL">Alagoas</option>
-                                <option value="AP">Amapá</option>
-                                <option value="AM">Amazonas</option>
-                                <option value="BA">Bahia</option>
-                                <option value="CE">Ceará</option>
-                                <option value="DF">Distrito Federal</option>
-                                <option value="ES">Espírito Santo</option>
-                                <option value="GO">Goiás</option>
-                                <option value="MA">Maranhão</option>
-                                <option value="MT">Mato Grosso</option>
-                                <option value="MS">Mato Grosso do Sul</option>
-                                <option value="MG">Minas Gerais</option>
-                                <option value="PA">Pará</option>
-                                <option value="PB">Paraíba</option>
-                                <option value="PR">Paraná</option>
-                                <option value="PE">Pernambuco</option>
-                                <option value="PI">Piauí</option>
-                                <option value="RJ">Rio de Janeiro</option>
-                                <option value="RN">Rio Grande do Norte</option>
-                                <option value="RS">Rio Grande do Sul</option>
-                                <option value="RO">Rondônia</option>
-                                <option value="RR">Roraima</option>
-                                <option value="SC">Santa Catarina</option>
-                                <option value="SP">São Paulo</option>
-                                <option value="SE">Sergipe</option>
-                                <option value="TO">Tocantins</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="cep">CEP *</label>
-                            <input type="text" id="cep" name="cep" class="form-control" required>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="telefone">Telefone *</label>
-                            <input type="tel" id="telefone" name="telefone" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="email">E-mail *</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-                    </div>
+                    <label for="telefone">
+                        Telefone <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="tel" id="telefone" name="telefone" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="responsavel">Responsável Legal *</label>
-                    <input type="text" id="responsavel" name="responsavel" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="cpf-responsavel">CPF do Responsável *</label>
-                    <input type="text" id="cpf-responsavel" name="cpf_responsavel" class="form-control" required>
+                    <label for="email">
+                        E-mail <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="email" id="email" name="email" class="form-control" required>
                 </div>
                 
                 <button type="submit" class="btn-submit">Cadastrar Empresa</button>
@@ -251,17 +188,6 @@
                 cnpjInput.value = value;
             });
             
-            // Formatar CEP
-            const cepInput = document.getElementById('cep');
-            cepInput.addEventListener('input', function() {
-                let value = cepInput.value.replace(/\D/g, '');
-                if (value.length > 8) value = value.slice(0, 8);
-                if (value.length > 5) {
-                    value = value.replace(/^(\d{5})(\d{3}).*/, '$1-$2');
-                }
-                cepInput.value = value;
-            });
-            
             // Formatar Telefone
             const telInput = document.getElementById('telefone');
             telInput.addEventListener('input', function() {
@@ -279,23 +205,6 @@
                 }
                 
                 telInput.value = value;
-            });
-            
-            // Formatar CPF
-            const cpfInput = document.getElementById('cpf-responsavel');
-            cpfInput.addEventListener('input', function() {
-                let value = cpfInput.value.replace(/\D/g, '');
-                if (value.length > 11) value = value.slice(0, 11);
-                
-                if (value.length > 9) {
-                    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
-                } else if (value.length > 6) {
-                    value = value.replace(/^(\d{3})(\d{3})(\d{3}).*/, '$1.$2.$3');
-                } else if (value.length > 3) {
-                    value = value.replace(/^(\d{3})(\d{3}).*/, '$1.$2');
-                }
-                
-                cpfInput.value = value;
             });
         });
     </script>

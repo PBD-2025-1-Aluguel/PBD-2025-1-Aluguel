@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib import admin
+from .models import Empresa, Produto
 
 def home(request):
     """
@@ -80,23 +81,39 @@ def dashboardView(request):
         'dash.html'
     )
 
+
 def cadastrarEmpresaView(request):
-    # Verificar se o usuário é superusuário
+
     if not request.user.is_superuser:
         return redirect('dash')
-    
+
     if request.method == 'POST':
-        # TODO tratar os dados do formulario
+        Empresa.objects.create(
+            nome=request.POST['nome'],
+            cnpj=request.POST['cnpj'],
+            telefone=request.POST['telefone'],
+            email=request.POST['email']
+        )
+        messages.success(request, 'Empresa cadastrada com sucesso!')
         return redirect('dash')
-    
     return render(request, 'cadastrarEmpresa.html')
 
-#def login(request):
-#    if request.method == "GET":
-#        return render(request, 'login.html')
-#    else:
-#        username = request.POST.get('user')
-#        senha = request.POST.get('password')
-#
-#        return HttpResponse(username)
+def cadastrarProduto(request):
+
+    if not request.user.is_superuser:
+        return redirect('dash')
+
+    if request.method == 'POST':
+        Produto.objects.create(
+            nome=request.POST['nome'],
+            descricao=request.POST['descricao'],
+            valor_diario=request.POST['valor_diario'],
+            disponivel='disponivel' in request.POST,
+            locador_id=request.POST['locador']
+        )
+        messages.success(request, 'Produto cadastrado com sucesso!')
+        return redirect('dash')
+    empresas = Empresa.objects.all()
+    return render(request, 'cadastrarProduto.html', {'empresas': empresas})
+
     
