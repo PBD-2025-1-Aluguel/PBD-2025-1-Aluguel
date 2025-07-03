@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Empresa(models.Model):
@@ -22,3 +23,13 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Aluguel(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    data_aluguel = models.DateTimeField()
+    data_fim = models.DateTimeField()
+    valor = models.DecimalField(max_digits=15, decimal_places=2)
+    cliente = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.produto

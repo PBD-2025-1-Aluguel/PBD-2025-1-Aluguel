@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Aluguel | RentHub</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        /* Estilo Global */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #ff6b6b;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .btn-submit {
+            background: #ff6b6b;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.3s;
+            display: block;
+            margin: 2rem auto 0;
+            width: 200px;
+        }
+        
+        .btn-submit:hover {
+            background: #e55c5c;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h1 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: #777;
+        }
+        
+        .required-asterisk {
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">RentHub</div>
+            <div class="nav-links">
+                <a href="{% url 'dash' %}">Voltar para Dashboard</a>
+                <a href="{% url 'login' %}">Sair</a>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Mensagens de alerta -->
+    {% if messages %}
+    <div style="position: fixed; top: 80px; right: 20px; z-index: 1100;">
+        {% for message in messages %}
+        <div style="padding: 15px; margin-bottom: 10px; border-radius: 4px; 
+                background: {% if message.tags == 'success' %}#d4edda{% else %}#f8d7da{% endif %}; 
+                color: {% if message.tags == 'success' %}#155724{% else %}#721c24{% endif %};
+                border: 1px solid {% if message.tags == 'success' %}#c3e6cb{% else %}#f5c6cb{% endif %};">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="dashboard-container">
+        <div class="form-header">
+            <h1>Cadastrar Novo Aluguel</h1>
+            <p>Preencha os dados básicos do aluguel para cadastro no sistema</p>
+        </div>
+        
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="produto">
+                        Produto <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="produto" name="produto" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dataA">
+                        DataAluguel <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="datetime" id="" name="dataA" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dataF">
+                        DataFim <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="datetime" id="dataF" name="dataF" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="valor">
+                        Valor <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="number" id="valor" name="valor" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cliente">
+                        Cliente <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="cliente" name="cliente" class="form-control" required>
+                </div>
+                
+                <button type="submit" class="btn-submit">Cadastrar Aluguel</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
